@@ -4,8 +4,18 @@ package ru.skypro;
 public class Main {
 
     public static void main(String[] args) {
-        EmployeeBook book =  new EmployeeBook();
-        book.main();
+        EmployeeBook book =  new EmployeeBook(15);
+
+        book.addNewEmployee("Иванов Сергей Александрович", 1, 32500);
+        book.addNewEmployee("Кентавр Рон Уизлевич", 4, 111000);
+        book.addNewEmployee("Сидоров Алексей Владимирович", 1, 58900);
+        book.addNewEmployee("Горева Алла Витальевна", 2, 43150);
+        book.addNewEmployee("Салимова Элла Панфиловна", 2, 64800);
+        book.addNewEmployee("Крылов Олег Николаевич", 5, 78560);
+        book.addNewEmployee("Шарипова Оксана Снежановна", 3, 55555);
+        book.addNewEmployee("Потапов Евгений Сергеевич", 5, 81000);
+
+
 
         book.printAllEmplInform();
         int costs = book.calcCostsPerMonth();

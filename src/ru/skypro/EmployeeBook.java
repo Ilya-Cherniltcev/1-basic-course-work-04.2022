@@ -1,6 +1,5 @@
 package ru.skypro;
 
-import jdk.jshell.spi.ExecutionControl;
 
 import java.util.Arrays;
 
@@ -11,40 +10,32 @@ public class EmployeeBook {
 
     private int countNotNull;
     private int countNotNullDep;
-    private int numDep; // Число отделов
+    private int numDep = 5; // Число отделов
 
-    public void main() {
-        numDep = 5;
-        empl = new Employee[10];
+    public EmployeeBook() {                 // можно объявлять в начале класса
+        this.empl = new Employee[10];       // инициализацию объекта
+    }
 
-        empl[0] = new Employee("Иванов Сергей Александрович", 1, 32500);
-        empl[1] = new Employee("Кентавр Рон Уизлевич", 4, 111000);
-        empl[2] = new Employee("Сидоров Алексей Владимирович", 1, 58900);
-        empl[3] = new Employee("Горева Алла Витальевна", 2, 43150);
-        empl[4] = new Employee("Салимова Элла Панфиловна", 2, 64800);
-        empl[5] = new Employee("Крылов Олег Николаевич", 5, 78560);
-        empl[6] = new Employee("Шарипова Оксана Снежановна", 3, 55555);
-        empl[7] = new Employee("Потапов Евгений Сергеевич", 5, 81000);
-
-
+    public EmployeeBook(int numbers) {      // c разными входными параметрами.
+        this.empl = new Employee[numbers];  // Либо по умолчанию
     }
 
     // ----------------  базовые методы ----------------------------
 // -------------------------------------------------------------
     public void printAllEmplInform() { // печатаем всю информацию о сотрудниках
-        for (int i = 0; i < empl.length; i++) {
-            //       if (empl[i] != null) {
-            System.out.println(empl[i]);
-            //        }
+        for (Employee i : empl) {
+            if (i != null) {
+                System.out.println(i);
+            }
         }
     }
 
     public int calcCostsPerMonth() { // считаем сумму затрат на зарплаты в месяц
         int sum = 0;
         countNotNull = 0;
-        for (int i = 0; i < empl.length; i++) {
-            if (empl[i] != null) {
-                sum += empl[i].getSalary();
+        for (Employee employee : empl) {
+            if (employee != null) {
+                sum += employee.getSalary();
                 countNotNull++;
             }
         }
@@ -91,9 +82,9 @@ public class EmployeeBook {
 
     public void printAllNames() {
         System.out.println("====   Список Ф.И.О. всех сотрудников:   ====");
-        for (int i = 0; i < empl.length; i++) {
-            if (empl[i] != null) {
-                System.out.printf(empl[i].getName() + "\n");
+        for (Employee employee : empl) {
+            if (employee != null) {
+                System.out.printf(employee.getName() + "\n");
             }
         }
     }
@@ -109,18 +100,18 @@ public class EmployeeBook {
 // --------------------------------------------------------------------------------
     public void indexAllSalaries(int percent) { // увеличиваем все зарплаты на величину percent в %
         int t;
-        for (int i = 0; i < empl.length; i++) {
-            if (empl[i] != null) {
-                t = empl[i].getSalary();
-                empl[i].setSalary(t + t * (int) percent / 100);
+        for (Employee employee : empl) {
+            if (employee != null) {
+                t = employee.getSalary();
+                employee.setSalary(t + t * (int) percent / 100);
             }
         }
     }
 
     private boolean isExistDep(int numDepart) { // проверяем корректность номера отдела
         boolean isEx = false;
-        for (int i = 0; i < empl.length; i++) {
-            if (empl[i] != null && numDepart == empl[i].getDepartment()) {
+        for (Employee employee : empl) {
+            if (employee != null && numDepart == employee.getDepartment()) {
                 isEx = true;
                 return isEx;
             }
@@ -233,9 +224,9 @@ public class EmployeeBook {
 
     public void printSalaryLessThan(int smallSalary) { // выводим сотрудников с меньшей з/п
         System.out.println("************  Работники с зарплатой меньше, чем " + smallSalary + " руб./мес.  ****  ");
-        for (int i = 0; i < empl.length; i++) {
-            if (empl[i] != null && empl[i].getSalary() < smallSalary) {
-                System.out.println("id-" + empl[i].getId() + ", " + empl[i].getName() + ", з/п- " + empl[i].getSalary() + " руб./мес.");
+        for (Employee employee : empl) {
+            if (employee != null && employee.getSalary() < smallSalary) {
+                System.out.println("id-" + employee.getId() + ", " + employee.getName() + ", з/п- " + employee.getSalary() + " руб./мес.");
             }
         }
     }
@@ -243,9 +234,9 @@ public class EmployeeBook {
 
     public void printSalaryBiggerThan(int bigSalary) { // выводим сотрудников с бОльшей з/п
         System.out.println("************  Работники с зарплатой больше, чем " + bigSalary + " руб./мес.  ****  ");
-        for (int i = 0; i < empl.length; i++) {
-            if (empl[i] != null && empl[i].getSalary() >= bigSalary) {
-                System.out.println("id-" + empl[i].getId() + ", " + empl[i].getName() + ", з/п- " + empl[i].getSalary() + " руб./мес.");
+        for (Employee employee : empl) {
+            if (employee != null && employee.getSalary() >= bigSalary) {
+                System.out.println("id-" + employee.getId() + ", " + employee.getName() + ", з/п- " + employee.getSalary() + " руб./мес.");
             }
         }
     }
@@ -321,7 +312,7 @@ public class EmployeeBook {
 
     public void changeDepartment(int oldDep, int newDep) { // Переводим всех сотрудников одного отдела в другой
         for (int i = 0; i < empl.length; i++) {
-            if (empl[i] != null && empl[i].getDepartment()== oldDep) {
+            if (empl[i] != null && empl[i].getDepartment() == oldDep) {
                 empl[i].setDepartment(newDep);
             }
         }

@@ -11,11 +11,11 @@ public class Employee {
 
 
     public Employee(String name, int department, int salary) {
-        this.id = getIdCounter();
+        this.id = ++idCounter;
         this.name = name;
         this.department = department;
         this.salary = salary;
-        idCounter++;
+
     }
 // -------------------------- Геттеры  --------------------------
     public int getId() {
@@ -34,9 +34,7 @@ public class Employee {
         return salary;
     }
 
-    public int getIdCounter() {
-        return idCounter;
-    }
+
 // -------------------------- Сеттеры  --------------------------
     public void setDepartment(int department) {
         this.department = department;
