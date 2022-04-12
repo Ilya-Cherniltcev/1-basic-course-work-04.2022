@@ -275,7 +275,7 @@ public class EmployeeBook {
     public int getIdEmployeeByName(String name) { // ------ Находим сотрудника по Ф.И.О.
         int id = -1;
         for (int i = 0; i < empl.length; i++) {
-            if (empl[i] != null && empl[i].getName() == name) {
+            if (empl[i] != null && empl[i].getName().equals(name)) {
                 id = i;
                 break;
             }
