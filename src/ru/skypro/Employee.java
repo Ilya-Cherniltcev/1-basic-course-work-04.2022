@@ -1,4 +1,7 @@
 package ru.skypro;
+
+import java.util.Objects;
+
 // +++++++++++++++++++++++  класс -  работник  +++++++++++++++++++++++
 public class Employee {
 
@@ -48,5 +51,18 @@ public class Employee {
     @Override
     public String toString() {
         return "id-" + id + ", Ф.И.О.: " + name + ", отдел-" + department + ", з/п- " + salary + " руб./мес.";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return Objects.equals(name, employee.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
